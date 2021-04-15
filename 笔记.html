@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            python：一门解释型，面向对象的高级编程语言
+                    优点：易维护，可移植
+                    缺点：运行速度慢，代码不能加密(发布代码就是发布源代码)
+                    应用场景：web开发(Django，TurboGears,web2py，Flask框架)，自动化脚本(自动化测试，服务器运维)，桌面软件
+                             游戏(编写游戏的逻辑和服务器)，科学计算，编写服务器软件/网络爬虫
+            1.使用
+                ---安装
+                    --官网下载（注意点击Add的选项，添加到本地环境变量中）
+                    --测试版本（cmd中输入python，可进入python环境，输入exit()退出python环境）
+                
+                ---vscode编译python
+                    下载python（代码提示，调试），Pyright（检查python的数据类型检查，能帮助提前发现语法错误）插件，
+
+                ---初始代码
+                    --- import this -----python之禅
+                    --- print("python程序") ----输出
+
+                ---代码文件，后缀是  .py
+
+                ---终端执行(运行的是shell脚本)
+                    python 文件名
+                    ---终端输入python，会进入python命令行，此时只能运行python代码，不能运行shell命令
+
+            2.python模板
+                创建py文件时，自动生成模板
+                #-*- codeing = utf-8 -*-     //添加注释，说明任何编译器都是输出utf-8格式
+                '''
+                #@Time: ${DATA} ${TIME}      //添加注释，说明此程序生成的时间
+                #@Author:cc                  //添加注释，说明此程序的作者
+                #@File: ${NAME}.py           //添加注释，说明文件的拓展名和后缀
+                '''
+                ----单行注释  #
+                ----多行注释 '''
+
+            3.python语法
+                变量：（必须是大小写字母，数字和下划线_的组合，且不能以数字开头）
+                    --可以是任意的数据类型，不存在声明
+                        >>a=12   #整数类型
+                        >>a='asdf'  #字符串类型
+
+                关键字：标识符
+                    --and if else  等
+
+                python的分号;
+                    --也支持分号; 但可省略，更推荐使用换行符作为每条语句的分隔
+
+                自增自减：
+                    python不支持类似i++/i--的自增运算符
+                    自增： i+=1;
+                    自减： i-=1;
+
+                占位符：
+                    %s:说明是string
+                    %d:说明是number
+
+                输出：print()
+                    >>print('www','baidu','com',sep='.')  //输出www.baidu.com的超链接sep声明中间使用.
+                    >>print('hello',end='/n')  //表示最后输出后进行换行
+
+                字符串/变量拼接:(c语言的拼接语法，先声明变量类型，再写入变量数据)
+                    >>string='aaa'
+                    >>string1='bbb'
+                    >>print('字符串是%s'%(string))
+                    >>print('字符串1是%s,字符串2是%s'%(string,string1))
+                    >>print('字符串是'，string)
+
+                输入：input()---返回结果是字符串
+                    --获取用户的输入信息
+                    >>password=input('请输入密码')
+                    >>print('密码是',password)
+
+                检查变量类型：type()
+                    --检查变量的类型
+                    >>a='123'
+                    >>print(type(a))
+
+                逻辑运算符
+                    --and  与
+                    --or   或
+                    --not  非
+
+                判断语句:
+                    --在代码块中通过前面的空格缩进方式判断代码是属于哪一个代码段的，即是哪一对的
+                    --由于 python 并不支持 switch 语句，所以多个条件判断，只能用 elif 来实现
+                    --if else 
+                        --等于js中的if(){
+
+                        }else{
+
+                        }
+                        --python
+                            if():
+                                print()
+                            else :
+                                print()
+                    --if elif else
+                        --等于js中的if(){
+
+                        }else if(){
+
+                        }else{
+
+                        }
+                        --python
+                            if (xxx):
+                                print()
+                            elif (xxx) :
+                                print()
+                            else:
+                                print
+                    >>if 100:
+                    >>   print('True')
+                    >>else:
+                    >>   print("false")
+                    >>print('end')  //此代码片段不是if-else里面的
+
+                引入：
+                    全部引入：
+                        --import  xxx
+                    从某个模块引入某个函数等（引入多个，使用函数名枚举排列）
+                        --from xxx import test1函数名,test//函数名
+                    >>import random
+                    >>print()
+
+                循环语句：Python 提供了 for 循环和 while 循环（在 Python 中没有 do..while 循环）
+                        --循环中可通过break跳出循环
+                    --while循环
+                        while (a<10):
+                            a+=1;
+                            print(a)
+
+                    --for循环
+                        for i in arr:
+                            print(i)
+
+                    --for-else循环
+                        --else语句是在for循环完成时执行
+                        for i in arr:
+                            print(i)
+                        else:
+                            print('aaaaa')
+
+                    --break语句
+                        for i in arr:
+                            if(i<10):
+                                print('小于10')
+                                break
+                            print(i)
+
+                    --continue语句
+                        --跳出本次循环，用来告诉Python跳过当前循环的剩余语句，然后继续进行下一轮循环。
+                        --continue语句用在while和for循环中。
+                    
+                    --可支持双重循环
+                        for-for循环
+                        while-while循环
+
+                pass语句：
+                    --只起到占据语句的作用
+                    --空语句
+                    --可使用场景
+                        --保证程序结构的完整性
+                        --书写一个空函数，可使用pass保证函数正常运行
+                        
+            4.python数据类型
+                --类型转换
+                    int()--- 转换成整数
+                    float()--浮点数
+                    long()---长整数（ 无限大小的整数，整数最后是一个大写或小写的L。）
+                    str()----对象x => 字符串
+                    tuple()--序列 => 元组
+                    list()---序列 => 列表
+                    chr()----将一个整数 => 一个字符
+                    ord()----将一个字符 => 对应的整数值
+
+                --number类型
+                    引入math模块
+                        --import math/cmath
+                        --print(math.sqrt(-1))
+                
+                --字符串
+
+                --序列（与数组类似）--list
+                    --[1,2,3,4]
+                    --方法：
+                        list.append(obj)----序列末尾追加新的对象
+                        list.count(obj)-----统计某元素在序列中出现的次数
+                        list.index(obj)-----找出该元素在序列中第一次出现的索引值
+                        list.insert(index,obj)-----将对象插入列表,改变原序列
+                        list.pop(index)-----无参数,默认删除最后一个。加参数，指定删除
+                    --序列长度
+                        --len(list)
+                    --序列最大值
+                        --max(list)
+                    --序列最小值
+                        --min(list)
+                    --序列转化成元组
+                        --tuple(list)
+
+                --元组--tuple
+                    --（1,2,3）
+                    --元组的数据不能修改
+                    --元组中只包含一个元素时，需要在元素后面添加逗号
+                        --(1,)
+                    --元组长度
+                        --len(arr)
+                    --元组最大值
+                        --max(arr)
+                    --元组最小值
+                        --min(arr)
+
+            5.python的函数  
+                --代码块以def关键字开头，函数最后以return[表达式] 结束函数，无表达式return none
+                --def test(a,b):
+                        return a+b
+                --调用
+                    test()
+
+            6.导入模块
+                --from...
+                    --import test//模块名
+                    --模块使用
+                        --test.nameFunction() //调用test模块的方法nameFunction()
+
+                --from...import //从模块中导入一个指定的部分到当前命名空间
+                    --from test from func1  //引入test模块的fuunc1 
+
+            7.文件操作
+                --打开文件
+                    f=open('test.txt','w')
+                    //打开文件后，一定要关闭f.close(),无论是否打开出错，都必须关闭，以确保下次打开此文件可正常执行
+                    f=open('文件名','文件模式')
+                        文件模式;
+                            r 只读 
+                            w 只写(当是只写入时，如果查找文件不存在将会在当前目录下新建文件)
+                            a 打开文件用于追加，文件存在则追加到文件的末尾，不存在则新建文件
+                            rb 用二进制格式打开文件只用于只读，文件指针会放在文件的开头(这是默认模式)
+                            wb 用二进制格式打开文件只用于只写，如果该文件存在则将其覆盖，不存在就会新建文件
+                            ab 用二进制格式打开文件用于追加，文件存在将会追加到文件的末尾，不存在则创建新的文件
+                --关闭文件
+                    f.close() //关闭文件
+
+                --写入文件内容
+                    f.write('文件内容')
+
+                --读取文件内容（一部分）
+                    f.read(5)  //默认是：读取文件的从头开始的5个字符
+                                //一般以上一次读取文件的末尾为起点（每执行一次，向后移动指定字符数）
+                    例如：content=f.read(2)
+                        print(content)  //输出2个字符
+                        content=f.read(3)
+                        print(content)  //输出5个字符
+
+                --读取整个文件内容
+                    content=f.readLines()
+                    print(content)   //返回一个序列list,以文件内容的每一行作为元素
+        
+            8.异常处理
+                --捕获异常
+                    try/except/finally语句
+                    try: 
+                        //监听代码
+                        print('test')
+                    except Exception as result:
+                        //捕获异常
+                        print('产生错误')
+                    finally:
+                        //位置无论写在哪里都可以
+                        //无论是否捕获到异常，都会执行
+                        print('aaa')
+
+            9.python爬虫
+                --本质：模拟浏览器的操作，打开网页，获取网页中我们想要的数据
+                --搜索引擎
+                    ：本质是通过爬虫程序将网页中的数据爬取下来，保存在临时的库、数据库中进行处理
+                        （如果出现新的网页数据或者没爬取完，将重复爬取的操作）
+                        然后再建立一个索引区，在索引区中进行分类，归档，排序，然后将结果反馈给用户，
+                        用户进行搜索引擎查询
+                --基本爬虫思路
+                    --封装爬取网站的request header的值，模拟真实的请求，进行伪装
+
+            10.安装python的库(爬虫需要的库)
+                --查看python安装的模块
+                    --pip list
+                --查看python的内置库
+                    --在/python/Lib文件目录下
+                --在python安装目录下的scripts下安装
+                    例如：F:\python\Scripts
+                --安装bs4
+                    --作用：网页解析，获取数据
+                    --pip install bs4
+                --安装request
+                    --pip install request
+                --安装re
+                    --作用：正则表达式，进行文字匹配
+                    --
+                --安装urllib.request,urllib.error 
+                    --作用：制定url，获取网页数据
+                --安装xlwt
+                    --作用：进行excel的操作
+                --安装sqlite3
+                    --作用：进行SQLite数据库操作
+
+            11.urllib使用----爬取网页
+                --urllib.request.uelopen(//需要打开的网址)-----爬取网页
+                --获取一个get请求
+                    response=urllib.request.urlopen('http://python.org/')
+                    print(response.read().decode('utf-8'))  //通过decode('utf-8')来解析成utf-8编码格式
+                --获取一个post请求
+                    #将信息转化成form表单提交数据
+                    data=bytes(urllib.parse.urlencode({'hello':'world'}),encoding='utf-8')  //模拟用户提交数据操作
+                    response=urllib.request.urlopen('http://httpbin.org/post'，timeout=0.01[设置请求时间])
+                    print(response.read().decode('utf-8'))  //通过decode('utf-8')来解析成utf-8编码格式
+
+                --防止对方察觉到是一个爬虫
+                    --伪装成浏览器访问，封装请求对象（增添和修改header等---伪装成用户请求时出现的header）
+                    例如：
+                        url='https://www.douban.com'
+                        headers={
+                            //封装header对象，伪装成、真实的浏览器
+                            "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
+                        }
+                        //请求时，携带参数,封装真实的请求request
+                        req=urllib.request.Request(url=url,data=data,headers=headers，method="POST")
+                        response=urllib.request.urlopen(req)   //进行爬取
+                        print(response.read().decode('utf-8'))
+                    
+            12.BeautifulSoup4(简称 bs4)的使用     
+                --将复杂的HTML文档转化成一个复杂的树形结构，每个节点都是python对象，所有对象可以归纳为4种
+                    --Tag
+                    --NavigableString
+                    --BeautifulSoup
+                    --Comment
+                        
+        */
+
+    </script>
+</body>
+</html>
