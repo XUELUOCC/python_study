@@ -80,4 +80,3 @@ headers={
 req=urllib.request.Request(url=url,headers=headers)
 response=urllib.request.urlopen(req)
 print(response.read().decode('utf-8'))
-

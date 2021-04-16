@@ -337,13 +337,91 @@
                     
             12.BeautifulSoup4(简称 bs4)的使用     
                 --将复杂的HTML文档转化成一个复杂的树形结构，每个节点都是python对象，所有对象可以归纳为4种
-                    --Tag
+                    --Tag   
+                        --标签对象（获取html文件中的标签，获取第一个出现的标签）
+                            --bs.a
+                        --获取标签内容
+                            --bs.a.string
+                        --获取标签内的所有属性值
+                            --bs.a.attrs
                     --NavigableString
+                        --标签里面的内容对象
+                        --bs.a.string
                     --BeautifulSoup
+                        --整个文档对象
+                        --bs=beautifulSoup(html,"html.parser")
                     --Comment
+                        --是一个特殊的navigableString，输出的内容不包括注释
+                --使用
+                    1.引入
+                    2.阅读打开文件
+                        --file=open('./baidu.html','rb')
+                        --html=file.read()
+                    3.建立bs4的对象，并设置解析器,设置解析器解析html(爬取获取的文件数据)
+                        --bs=beautifulSoup(html,"html.parser")
+                        --print(bs.title)  //获取html中的第一个title标签
+                        --print(bs.a)   //获取html中的第一个a标签
+                    4.文档的遍历
+                        查找指定标签里面的所有内容的子节点
+                        --查找head标签中的内容
+                            --bs.meta.contents  
+                    5.文档的搜索，查找指定的标签和数据
+                        --find_all
+                            --字符串过滤，查找与字符串完全匹配的内容
+                            t_list=bs.find_all('a')   //查找所有的a标签
+                            soup.find_all('div',class_="item")  //查找div，且class="name"的对象
                         
+                        --search()
+                            --使用正则表达式查找
+                            t_list=bs.find_all(re.compile('a'))   //查找所有符合正则表达式的对象，标签中包含a的对象
+                        
+                        --传入一个方法(函数)查找
+
+                        --使用选择器查找
+                            --t_list=bs.select('title')  //查找title标签的元素
+                            --t_list=bs.select('.mab')   //查找class=mab的元素
+                            --t_list=bs.select('#ids')   //查找id=ids的元素
+                            --t_list=bs.select("a[class='sd']'"")   //查找a标签中的class=sd的元素
+            
+            13.正则表达式
+                --在正则表达式中，被比较的字符前加“r”,不用担心转义字符的问题
+                    --reg=re.match(r'^[a-z]dd$','dfvgb')
+                --1.引入
+                    import re
+                --2.编译、创建正则表达式,返回一个Pattern对象
+                    pat=re.compile('^[a-z]AA$')   //编译成功的字符，用来验证其他字符的字符串。（符合标准的字符串）
+                --3.正则的方法（Pattern对象的常用方法）
+                    --search()
+                        ----只会找到第一个匹配的对象
+                        ----判断是否匹配，如果匹配成功，返回一个 Match 对象，否则返回 None
+                        pat.search('aaaAA')   //存在compile，返回Pattern对象
+                    --match()
+                        --判断是否匹配，如果匹配成功，返回一个 Match 对象，否则返回 None
+                        pat.match('sssAA')  //存在compile，返回Pattern对象
+                    --findall()
+                        --查找所有符合规则的字符串
+                        --reg=re.findall('^[a-z]ww$正则表达式','dfgderfg需要验证的字符串')
+                    --sub()
+                        --替换
+                        --reg=re.sub('a','A','adfgdf')  //将a替换成A
+                --4.正则的简写（不存在compile中的Pattern对象）
+                    --reg=re.search('^[a-z]AAD$正则表达式','adgdsfgb需要验证的字符串')
+                    --print(reg)
+
+                    --reg=re.match('^[a-z]AAD$正则表达式','adgdsfgb需要验证的字符串')
+                    --print(reg)
+
+            14.将数据保存到excel中
+                --使用xlwt库
+                --使用
+                    book=xlwt.Workbook(encoding='utf-8')  #创建workbook对象
+                    sheet=book.add_sheet('sheet1')  #创建工作表格
+                    sheet.write(0,0,'hello')  #写入数据，第一个参数“行”，第二个参数“列”，第三个参数“写入的内容”
+                    book.save('study.xls') #保存数据表 参数是文件路径
         */
 
     </script>
+    <div>标签</div>
+    <a href="https://www.baidu.com">百度一下</a>
 </body>
 </html>
