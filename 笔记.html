@@ -418,6 +418,30 @@
                     sheet=book.add_sheet('sheet1')  #创建工作表格
                     sheet.write(0,0,'hello')  #写入数据，第一个参数“行”，第二个参数“列”，第三个参数“写入的内容”
                     book.save('study.xls') #保存数据表 参数是文件路径
+
+            15.将数据保存到数据库中
+                --可使用sqlite3 数据库
+                --python3之后默认存在加载
+                --使用
+                    1.引入
+                        import sqlite3
+                    2.创建数据库对象
+                        conn=sqlite3.connect("test.db(创建的文件路径，当前文件下)")
+                        c=conn.sursor()  //获取游标
+                        sql='''
+                            create table company
+                            (id int primary key not null,
+                            name text not null,
+                            age int not null,
+                            address char(50)
+                            );
+                        '''
+                        //书写sql语句
+                        c.excute(sql)  //执行sqly语句
+                        # cursor=c.execute(sql)  #查询时可通过此获取数据库数据
+                        conn.commit()   //提交数据库操作,除了”查询“不需要提交操作外，其他操作都需要
+                        conn.close()    //关闭数据库
+
         */
 
     </script>
