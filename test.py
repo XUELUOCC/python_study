@@ -64,6 +64,7 @@ print('aaaa')
 # print(test(1,2))
 
 import urllib.request,urllib.error,urllib.parse
+import random
 
 # response=urllib.request.urlopen('http://python.org/')
 # print(response.read().decode('utf-8'))
@@ -72,11 +73,33 @@ import urllib.request,urllib.error,urllib.parse
 # data=bytes(urllib.parse.urlencode({'hello':'world'}),encoding='utf-8')
 # response=urllib.request.urlopen('http://httpbin.org/post',data=data)
 # print(response.read().decode('utf-8'))
-url='https://www.douban.com'
+
+
+url='https://movie.douban.com/top250?start=0'
 headers={
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
 }
 
-req=urllib.request.Request(url=url,headers=headers)
-response=urllib.request.urlopen(req)
-print(response.read().decode('utf-8'))
+#代理ip
+proxy_list=[
+    {"http" : "61.135.217.7:80"},
+    {"http" : "111.155.116.245:8123"},
+    {"http" : "122.114.31.177:808"},
+]
+
+#随机抽取ip
+proxy=random.choice(proxy_list)
+
+#设置代理
+
+#构建代理服务器对象
+httpproxy_handle=urllib.request.ProxyHandler(proxy)
+
+#使用代理
+opener=urllib.request.build_opener(httpproxy_handle)
+
+#封装请求header
+request=urllib.request.Request(url=url,headers=headers)
+
+response=opener.open(request).read().decode('utf-8')
+print(response)

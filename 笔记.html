@@ -331,6 +331,7 @@
                             "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
                         }
                         //请求时，携带参数,封装真实的请求request
+                        //urlopen()方法可以实现最基本的请求的发起，但如果要加入Headers等信息，就可以利用Request类来构造请求。
                         req=urllib.request.Request(url=url,data=data,headers=headers，method="POST")
                         response=urllib.request.urlopen(req)   //进行爬取
                         print(response.read().decode('utf-8'))
@@ -442,6 +443,32 @@
                         conn.commit()   //提交数据库操作,除了”查询“不需要提交操作外，其他操作都需要
                         conn.close()    //关闭数据库
 
+            16.设置代理ip
+                ---防止一定的时间中，访问爬取数据频繁，被爬取网站封掉ip
+                ---使用urllib。request中的ProxyHandler方法
+                  --url='https://movie.douban.com/top250?start=0'
+                    headers={
+                        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
+                    }
+                    #代理ip
+                    proxy_list=[
+                        {"http" : "61.135.217.7:80"},
+                        {"http" : "111.155.116.245:8123"},
+                        {"http" : "122.114.31.177:808"},
+                    ]
+                    #随机抽取ip
+                    proxy=random.choice(proxy_list)
+                    
+                    #设置代理
+
+                    #构建代理服务器对象
+                    httpproxy_handle=urllib.request.ProxyHandler(proxy)
+                    #使用代理
+                    opener=urllib.request.build_opener(httpproxy_handle)
+                    #封装请求header
+                    request=urllib.request.Request(url=url,headers=headers)
+                    response=opener.open(request).read().decode('utf-8')
+                    print(response)
         */
 
     </script>

@@ -7,6 +7,7 @@
 '''
 from bs4 import BeautifulSoup
 import re
+import random
 import urllib.request,urllib.error
 import xlwt
 import sqlite3
@@ -109,11 +110,11 @@ def saveData(dataList,savePath):
 
 #得到指定一个url的网页内容
 def askURL(url):
-    head={
+    header={
         "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36",
         "Cookie":'bid=L6oUOU9G3YQ; douban-fav-remind=1; __gads=ID=9334ab52387a9ffb-2213c7fa6cc6007f:T=1615792523:RT=1615792523:S=ALNI_MZKzCpIaoM2jrDmL2w_qW6u6HmhLQ; __utmz=30149280.1615792526.1.1.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; ll="108288"; __utmc=30149280; __utmc=223695111; __utmz=223695111.1618457794.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); __yadk_uid=0JICxqvldCeQuYAjSxqjp1lmXH0tyAOD; _vwo_uuid_v2=DB8DF4BF8F039A4464EDD7718B1D35195|af1b322060a36eb3a3bf1d1f12611e43; ap_v=0,6.0; _pk_ses.100001.4cf6=*; __utma=30149280.1226424107.1615792526.1618555154.1618562973.5; __utmb=30149280.0.10.1618562973; __utma=223695111.453458065.1618457794.1618555154.1618562973.4; __utmb=223695111.0.10.1618562973; push_noty_num=0; push_doumail_num=0; _pk_id.100001.4cf6=b6dfc7e0e9189e18.1618457790.4.1618563174.1618555191.; dbcl2="224211431:mRuwfd1DJlA"'
     }
-    req=urllib.request.Request(url=url,headers=head)
+    req=urllib.request.Request(url=url,headers=header)
     html=""
     try:
         res=urllib.request.urlopen(req)
@@ -127,6 +128,24 @@ def askURL(url):
     return html
 
 
+#设置代理ip
+def get_ip(url,headers):
+    proxy_list=[
+        {"http" : "61.135.217.7:80"},
+        {"http" : "111.155.116.245:8123"},
+        {"http" : "122.114.31.177:808"},
+    ]
+    #抽取随机ip
+    proxy=random.choice(proxy_list)
+    #创建代理服务器对象
+    httpproxy_handle=urllib.request.ProxyHandler(proxy)
+    #使用代理
+    opener=urllib.request.build_opener(httpproxy_handle)
+    #封装header
+    request=urllib.request.Request(url=url,headers=headers)
+    #爬取
+    response=opener.open(request).read().decode('utf-8')
+    return response
 
 #可通过main()函数测试程序，定义程序的入口位置，即程序的开始的点
 if __name__=="__main__":   #当程序执行时
