@@ -22,11 +22,17 @@ a=2
 #     print('aaa')
 # print('bbb')
 
-f=open('test.txt','r')
+# f=open('test.txt','r')
 
-# f.write('hhhhhhh kkkkkkk kkkk')
+# # f.write('hhhhhhh kkkkkkk kkkk')
 
-content=f.readlines()
-print(content)
+# content=f.readlines()
+# print(content)
 
-f.close()
+# f.close()
+
+dicts={
+    'user':'cc',
+    'name':'vv'
+    }
+print(dicts['user'])

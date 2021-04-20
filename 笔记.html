@@ -209,7 +209,8 @@
 
                 --元组--tuple
                     --（1,2,3）
-                    --元组的数据不能修改
+                    --元组的数据不能修改,即tuple的每个元素的指向不变，如果tuple找那个存在序列list,
+                        序列list中的数值可以发生改变，但整个元组tuple的元素指向并没有发生变化
                     --元组中只包含一个元素时，需要在元素后面添加逗号
                         --(1,)
                     --元组长度
@@ -218,6 +219,47 @@
                         --max(arr)
                     --元组最小值
                         --min(arr)
+
+                --字典--dict
+                    --Python内置了字典：dict的支持，dict全称dictionary，在其他语言中也称为map，
+                        使用键-值（key-value）存储，具有极快的查找速度。
+                    --应用场景：根据key值查找value,需要查找的时候
+                    --{'user':cc,'name':ss}
+                    --方法
+                        --get(key,value)    //判断key是否存在，不存在返回none,或者指定的value值
+                            --d.get('user')   //返回none
+                            --d.get('user',-1)  //返回-1
+
+                        --pop(key)    //删除字典中的key值
+                            --d.pop('user')
+
+                --set
+                    ---与dict字典类似，同样是一组key的组合
+                    ---{1,2,3}
+                    ---其中set中不存在重复的key，和dict字典不同
+                    ---重复元素在set中自动被过滤
+                        ---s=set([1,1,2,12,33,2])
+                        ---返回{1,2,12,33}
+                    ---方法
+                        创建set
+                            --set(list列表)    //创建set
+                            --set([1,2,3,4])   
+                        添加key
+                            --add(key)
+                            --s={1,2,3}
+                            --s.add(4)    
+                            --print(s)    //s={1,2,3,4}
+                        删除key
+                            --remove(key)
+                            --s={1,2,3,4,5}
+                            --s.remove(1)   
+                            --print(s)    //s={2,3,4,5}
+                        替换key
+                            --replace（被替换的key，需要成的key
+                            --s={2,4,5,25,"a"}
+                            --s.replace('a','A')
+                            --print(s)   //s={2,4,5,25,'A'}
+                        
 
             5.python的函数  
                 --代码块以def关键字开头，函数最后以return[表达式] 结束函数，无表达式return none
@@ -458,7 +500,7 @@
                     ]
                     #随机抽取ip
                     proxy=random.choice(proxy_list)
-                    
+
                     #设置代理
 
                     #构建代理服务器对象
