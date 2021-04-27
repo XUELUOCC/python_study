@@ -490,7 +490,7 @@
                         conn.commit()   //提交数据库操作,除了”查询“不需要提交操作外，其他操作都需要
                         conn.close()    //关闭数据库
 
-            16.设置代理ip
+            16.设置代理ip(使用urllib)
                 ---防止一定的时间中，访问爬取数据频繁，被爬取网站封掉ip
                 ---使用urllib。request中的ProxyHandler方法
                   --url='https://movie.douban.com/top250?start=0'
@@ -516,6 +516,45 @@
                     request=urllib.request.Request(url=url,headers=headers)
                     response=opener.open(request).read().decode('utf-8')
                     print(response)
+
+            17.requests的使用
+                ----我们在使用python爬虫时，需要模拟发起网络请求，主要用到的库有requests库和python内置的urllib库，
+                    一般建议使用requests，它是对urllib的再次封装，它们使用的主要区别：
+                    requests可以直接构建常用的get和post请求并发起，urllib一般要先构建get或者post请求，然后再发起请求。
+                ----使用
+                    import requests
+
+                    #设置代理ip ，其中的代理ip需要和爬取网页的协议一样，即都是http或者https，否则将会报错
+                    #免费代理网站：
+                    https://www.zdaye.com/FreeIPlist.html  站大爷
+                    https://www.kuaidaili.com/ops/   快代理
+
+
+                    proxies={
+                        "https" : "https://111.23.16.250:3128"
+                    }
+
+                    response=request.get(
+                        url,
+                        params(//请求所带的参数),
+                        header,
+                        cookie,
+                        proxies(代理)=proxies，
+                        timeout=5(超时处理)
+                    )
+
+                    #当请求发出后，Request会基于头部对响应的编码做出有根据的推测，此时我们设置编码类型，防止出错
+                    response.encoding='utf-8'  //爬取网页源代码中的charest的类型(gbk,utf-8),
+
+                    print(response.text)   //得到的是str类型
+                    print(response.content) //得到的是bytes类型，需要进行解码Response_get.content.decode(),相当于Response_get.text
+                    print(responose.json()) //得到的是json类数据
+
+            18.通过selenium模拟浏览器爬取
+                ----可解决通过requests爬取的网页源代码和f12看到的页面代码不一致的问题
+                ----网页代码=源代码+f通过浏览器加载js之后的数据
+
+
         */
 
     </script>
