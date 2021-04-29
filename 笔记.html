@@ -392,6 +392,8 @@
                             --bs.a.string
                         --获取标签内的所有属性值
                             --bs.a.attrs
+                        --获取标签内的单个属性值
+                            --bs.a['href']   //获取a标签中的href属性
                     --NavigableString
                         --标签里面的内容对象
                         --bs.a.string
@@ -461,6 +463,10 @@
 
             14.将数据保存到excel中
                 --使用xlwt库
+                --适用于一般数据不多的写入
+                --缺点：
+                    ---该模块最大列只支持255列，超出就会报错，此时可考虑使用xlsxwriter
+                    ---只支持xls文件
                 --使用
                     book=xlwt.Workbook(encoding='utf-8')  #创建workbook对象
                     sheet=book.add_sheet('sheet1')  #创建工作表格
@@ -517,7 +523,7 @@
                     response=opener.open(request).read().decode('utf-8')
                     print(response)
 
-            17.requests的使用
+            17.requests的使用(urllib的进一步封装库)
                 ----我们在使用python爬虫时，需要模拟发起网络请求，主要用到的库有requests库和python内置的urllib库，
                     一般建议使用requests，它是对urllib的再次封装，它们使用的主要区别：
                     requests可以直接构建常用的get和post请求并发起，urllib一般要先构建get或者post请求，然后再发起请求。
@@ -553,6 +559,23 @@
             18.通过selenium模拟浏览器爬取
                 ----可解决通过requests爬取的网页源代码和f12看到的页面代码不一致的问题
                 ----网页代码=源代码+f通过浏览器加载的数据
+
+            19.xlsxwriter的使用
+                --将数据保存到excel中，但比xlwt库功能更加丰富和稳定
+                --适用于大量数据的写入,
+                    --不存在最大列的说法（xlwt最大列只支持255列，超出就会报错）
+                    --支持xls，xlsx
+                --使用
+                    import xlsxwriter
+
+                    book=xlsxwriter.Workbook('小说.xlsx')  #创建excel文件，参数是存储路径path
+                    sheet=book.add_worksheet('test-sheet')   #创建工作表格对象
+
+                    sheet.write(0,0,'内容')  #写入内容，参数（行，列，内容）
+                    sheet.set_column(0,1,40) # 设置列宽(参数：start列--last列之间的列宽是多少) 起始下标为0
+
+                    book.close() #关闭excel文件
+
 
 
         */
