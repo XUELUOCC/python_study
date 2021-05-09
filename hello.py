@@ -3,36 +3,8 @@
 #@Author:cc                  //添加注释，说明此程序的作者
 #@File: ${NAME}.py           //添加注释，说明文件的拓展名和后缀
 
+f=open("./test.txt","r",encoding="utf-8")
+# print(f.read())
+print(f.readline(1))   #读取第一行的第一个字符
+f.close()
 
-
-a=2
-# print(a)
-# while (a<7):
-#     if(a%2==0):
-#         print(a,"is even")
-#     else:
-#         print(a,"is odd")
-#     a+=1
-
-# arr=['1','2','q','w']
-
-# for i in arr:
-#     print(i)
-# else:
-#     print('aaa')
-# print('bbb')
-
-# f=open('test.txt','r')
-
-# # f.write('hhhhhhh kkkkkkk kkkk')
-
-# content=f.readlines()
-# print(content)
-
-# f.close()
-
-dicts={
-    'user':'cc',
-    'name':'vv'
-    }
-print(dicts['user'])
