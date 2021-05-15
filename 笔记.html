@@ -385,6 +385,7 @@
                     
             12.BeautifulSoup4(简称 bs4)的使用     
                 --将复杂的HTML文档转化成一个复杂的树形结构，每个节点都是python对象，所有对象可以归纳为4种
+                --不能解析js代码
                     --Tag   
                         --标签对象（获取html文件中的标签，获取第一个出现的标签）
                             --bs.a
@@ -434,6 +435,7 @@
                             --t_list=bs.select("a[class='sd']'"")   //查找a标签中的class=sd的元素
             
             13.正则表达式
+                --解析中可解析js代码
                 --在正则表达式中，被比较的字符前加“r”,不用担心转义字符的问题
                     --reg=re.match(r'^[a-z]dd$','dfvgb')
                 --1.引入
@@ -569,7 +571,11 @@
                         --同时设置chromedriver的系统环境变量
                         --版本不相同则程序运行时出错
                     3.程序
+                        from selenium import webdriver
 
+                        browser=webdriver.Chrome()  //通过selenium启动浏览器
+                        browser.get('https://www.zdaye.com/FreeIPlist.html')  //浏览器自动打开网页
+                        container=browser.find_element_by_id('ipc')   //抓取网页内容
 
 
 
@@ -589,7 +595,87 @@
 
                     book.close() #关闭excel文件
 
+            20.模拟登录
+                ---场景：当爬取需要登录的网页数据时，使用模拟登录
+                ---注意：模拟登录的前提是，已存在用户名和密码，只是通过程序进行登录，然后进行爬取
+                    ---不是破解！不是破解！不是破解！
+                ---步骤：
+                    1.通过requets进行登录接口的请求（代入已有的用户名和密码）
+                    2.请求成功后，打印网页内容
+                    3.下次访问该网点，保持cookie状态，即维持登录状态
+                ---使用：
+                    import requests
+                    from bs4 import BeautifulSoup
 
+                    headers={
+                        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36",
+                        "Referer": "https://passport.mafengwo.cn/"
+                    }
+                    FormData={
+                        'LoginForm':{
+                            'username':'雪落cc',
+                            'password':'CC135790'
+                        } 
+                    } 
+                    res=requests.post(url=url,data=FormData,headers=headers)
+                    print("%d%s"%(res.status_code,'aa'))
+                    
+                    res.encoding='utf-8'
+                    html=res.text
+
+                    soup=BeautifulSoup(html,'html.parser')
+                    account=soup.find_all('div',id='wrapper')
+                    
+            21.异步爬虫
+                ---在爬虫中使用异步实现高性能的数据爬取操作
+                ---应用场景：
+                    --爬取多个网页时，可同时爬取，不用等待一个网页爬取完成后再爬取另一个网页
+                ---requets.get(urtrl=url,data=data,headers=headers)
+                    ---#get方法是一个异步操作，是一个单线程操作
+                ---异步方法：
+                    --1.单独开启多进程和多线程（存在弊端，不提倡）
+                        ---可以为相关阻塞的操作单独开启线程或者是多进程，使阻塞操作可以异步执行
+                        （无法无限制的开启多线程或者多进程）
+
+                    --2.使用进程池或者线程池（适当的使用）
+                        ---原则：
+                            只是处理的是阻塞并且耗时的操作（必须是阻塞且较为耗时的操作，根据程序的代码判断）
+                        ---优点：可以降低系统对进程或者是线程创建和销毁的一个频率，从而很好的降低系统的开销
+                        ---弊端：池中进程和线程的数量存在上限
+                        ---方法：
+                            ---模块  multiprocessing.dummy import Pool
+                            --- 
+                            from multiprocessing.dummy import Pool  //multiprocessing.dummy---使用的进程中的线程
+                                                                    //multiprocessing ---使用的是进程
+                            import time
+
+                            test(str):
+                                print('正在下载',str)
+                                time.sleep(2)
+                                print('下载完成',str)
+
+                            str_list=['aaa','bbb','ccc']
+                            startTime=time.time()
+
+                            //实例化一个pool对象（线程池对象）
+                            pool=Pool(3)
+                            pool.map(test,str_list)  //第一个参数：函数；第二个参数：列表；
+                                        //第一个参数函数，其执行次数和传递的参数取决于第二个参数的长度和其中的元素
+                            endTime=time.time()
+                            print(endTime-startTime)  //最终执行的时间2s多一点，如果不用线程池最终执行时间是8s
+                ----例子：
+                    ----爬取网页中的视频等较大资源时，存在耗时并阻塞的行为，
+                        ---即下载爬取资源时的requests.get(url=url....)请求资源链接（例如视频资源地址）
+                        ---相对于请求网页内容链接的requests.get()是阻塞操作，但并不耗时
+                        
+
+            22.爬取动态加载的数据
+                ---1.通过selenium模拟浏览器爬取
+                ---2.查找动态加载数据的来源，一般存在于后台返回的接口数据中，返回方式一般为html结构+js代码，只不过是在页面加载完成后才返回                  
+                        ---可通过正则表达式匹配并解析js代码，得到想要的数据
+
+            23.高性能异步爬虫的单线程+异步协程（推荐使用）
+                ---
 
         */
 
