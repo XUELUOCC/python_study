@@ -126,7 +126,7 @@ def getNovelContent(dataList):
             strTitle=re.sub('\(.*?\)','',strTitle)  #去掉英文括号以及括号内的内容
             print(strTitle)
 
-            path='F://cc文件//python_study//novelSpider//novelData/'  #保存路径
+            path='D://个人项目//python_study//novelSpider//novelData/'  #保存路径
 
             #内容
             content=re.findall(r'<div id="content">(.*?)</div>',html,re.S)[0]
